@@ -12,6 +12,8 @@ int mouseY = -1 ;
 int main(int argc, char* argv[])
 {
     if (SDL_Init(SDL_INIT_VIDEO) == 0) {
+
+
         SDL_Window* window = NULL;
         SDL_Renderer* renderer = NULL;
 
