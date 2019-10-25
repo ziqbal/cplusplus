@@ -1,2 +1,7 @@
 
+# Plain
 g++ demo.cpp -o demo
+
+# SDL2
+g++ demo.cpp -w -lSDL2 -o demo
+
