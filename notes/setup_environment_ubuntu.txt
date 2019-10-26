@@ -9,6 +9,8 @@ cd SDL2-2.0.10/
 make
 sudo make install
 
+
+
 Enabled modules : atomic audio video render events joystick haptic sensor power filesystem threads timers file loadso cpuinfo assembly
 Assembly Math   : mmx 3dnow sse sse2 sse3
 Audio drivers   : disk dummy oss alsa(dynamic)
@@ -22,3 +24,34 @@ Using ime           : YES
 Using ibus          : NO
 Using fcitx         : NO
 
+
+# SDL2_Image
+# https://www.libsdl.org/projects/SDL_image/#source
+2001  tar zxvf ~/Downloads/SDL2_image-2.0.5.tar.gz 
+ 2002  cd SDL2_image-2.0.5/
+ 2003  ls
+ 2004  ./configure 
+ 2005  make
+ 2006  sudo make install
+
+#https://www.libsdl.org/projects/SDL_mixer/
+2009  tar zxvf ~/Downloads/SDL2_mixer-2.0.4.tar.gz 
+ 2010  cd SDL2_mixer-2.0.4/
+ 2011  ls
+ 2012  ./configure 
+ 2013  make
+ 2014  sudo make install
+
+
+  2076  sudo ldconfig -v
+
+#
+g++ demo.cpp -w -lSDL2 -o demo -lSDL2_image
+
+#
+g++ -std=c++11 demo.cpp -w -lSDL2 -o demo -lSDL2_image
+
+#
+g++ demo.cpp -w -lSDL2 -o demo -lSDL2_image -lSDL2_mixer
+
+ 
