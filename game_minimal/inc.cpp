@@ -5,8 +5,15 @@
 
 using namespace std ;
 
+#define WINDOW_WIDTH 800 
+#define WINDOW_HEIGHT 600 
+
 SDL_Window *window1 ;
 SDL_Renderer *renderer1 ;
+SDL_Texture *texture_pixels ;
+Uint32 *pixels ;
+
+SDL_bool gfx_pixels_dirty = SDL_TRUE;
 
 #include "functions.cpp"
 
@@ -21,7 +28,7 @@ int main( int argc , char* argv[ ] ) {
 
     ///////////////////////////////////////////////////////////////////////////
 
-    window1 = SDL_CreateWindow( "Hello World!" , 100 , 100 , 640 , 480 , SDL_WINDOW_SHOWN ) ;
+    window1 = SDL_CreateWindow( "Hello World!" , 100 , 100 , WINDOW_WIDTH , WINDOW_HEIGHT , SDL_WINDOW_SHOWN ) ;
 
     if( window1 == nullptr ) {
         cout << "SDL_CreateWindow Error: " << SDL_GetError( ) << endl;
@@ -46,8 +53,19 @@ int main( int argc , char* argv[ ] ) {
 
     SDL_SetRenderDrawBlendMode( renderer1 , SDL_BLENDMODE_BLEND ) ;
 
+    texture_pixels = SDL_CreateTexture( renderer1 , SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC , WINDOW_WIDTH , WINDOW_HEIGHT ) ;
+    SDL_SetTextureBlendMode(texture_pixels, SDL_BLENDMODE_BLEND);
+
+    pixels = new Uint32[ WINDOW_WIDTH * WINDOW_HEIGHT ] ;
+    memset( pixels , 0 , WINDOW_WIDTH * WINDOW_HEIGHT * sizeof( Uint32 ) ) ;
+
+    ///////////////////////////////////////////////////////////////////////////
+
+
     gfx_window_clear( ) ;
     gfx_present( ) ;
+
+
 
     srand( time( NULL ) ) ;
 
@@ -57,6 +75,8 @@ int main( int argc , char* argv[ ] ) {
     extern int game_setup( ) ;
     extern int game_loop( ) ;
     extern int game_event_keydown( int ) ;
+    extern int game_event_mousebuttondown( int ) ;
+    extern int game_event_mousemotion( int , int ) ;
 
     if( game_setup( ) == 0 ) {
 
@@ -68,6 +88,8 @@ int main( int argc , char* argv[ ] ) {
                 continue ;
 
             }
+            
+            gfx_present( ) ;
 
             while( SDL_PollEvent( &event ) ) {
 
@@ -78,6 +100,8 @@ int main( int argc , char* argv[ ] ) {
                 }
 
                 switch( event.type ) {
+                    
+                    //////////////////////////////////////////////////////////
 
                     case SDL_KEYDOWN :
 
@@ -97,6 +121,21 @@ int main( int argc , char* argv[ ] ) {
 
                         break;
 
+                    //////////////////////////////////////////////////////////
+
+                    case SDL_MOUSEBUTTONDOWN :
+                        game_event_mousebuttondown( event.button.button ) ;
+                        break ;
+
+                    case SDL_MOUSEMOTION :
+                        game_event_mousemotion( event.motion.x , event.motion.y ) ;
+                        break ;
+
+
+                    //////////////////////////////////////////////////////////
+
+
+
                 }
 
             }
@@ -108,6 +147,10 @@ int main( int argc , char* argv[ ] ) {
     }
     
     ///////////////////////////////////////////////////////////////////////////
+
+
+    delete[] pixels ;
+    SDL_DestroyTexture( texture_pixels ) ;
 
     SDL_DestroyRenderer( renderer1 ) ;
     SDL_DestroyWindow( window1 ) ;
