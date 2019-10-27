@@ -2,6 +2,8 @@
 # Ubuntu 18.04
 sudo apt-get install build-essential xorg-dev
 
+# https://www.libsdl.org/download-2.0.php
+
 # Build from source
 tar zxvf ~/Downloads/SDL2-2.0.10.tar.gz 
 cd SDL2-2.0.10/
