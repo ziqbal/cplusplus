@@ -40,6 +40,12 @@ void gfx_pixel_set( int x , int y , int r , int g , int b ) {
 
 }
 
+void gfx_pixels_clear( ) {
+
+    memset( pixels , 0 , WINDOW_WIDTH * WINDOW_HEIGHT * sizeof( Uint32 ) ) ;
+    
+}
+
 void gfx_present( ) {
 
 
@@ -47,7 +53,7 @@ void gfx_present( ) {
 
         SDL_UpdateTexture( texture_pixels , NULL , pixels , WINDOW_WIDTH * sizeof( Uint32 ) ) ;
         gfx_pixels_dirty = SDL_FALSE ;
-        
+
     }
 
     SDL_RenderCopy(renderer1, texture_pixels, NULL, NULL);

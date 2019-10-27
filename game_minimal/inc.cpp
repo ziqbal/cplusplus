@@ -61,11 +61,8 @@ int main( int argc , char* argv[ ] ) {
 
     ///////////////////////////////////////////////////////////////////////////
 
-
-    gfx_window_clear( ) ;
-    gfx_present( ) ;
-
-
+    //gfx_window_clear( ) ;
+    //gfx_present( ) ;
 
     srand( time( NULL ) ) ;
 
@@ -81,6 +78,8 @@ int main( int argc , char* argv[ ] ) {
     if( game_setup( ) == 0 ) {
 
         while( !done ) {
+            
+            gfx_window_clear( ) ;
 
             if( game_loop( ) != 0 ) {
 
@@ -88,7 +87,7 @@ int main( int argc , char* argv[ ] ) {
                 continue ;
 
             }
-            
+
             gfx_present( ) ;
 
             while( SDL_PollEvent( &event ) ) {
