@@ -5,15 +5,15 @@
 
 using namespace std ;
 
-#define WINDOW_WIDTH 500 
-#define WINDOW_HEIGHT 500 
+#define WINDOW_WIDTH 600 
+#define WINDOW_HEIGHT 600 
 
 SDL_Window *window1 ;
 SDL_Renderer *renderer1 ;
 SDL_Texture *texture_pixels ;
 Uint32 *pixels ;
 
-SDL_bool gfx_pixels_dirty = SDL_TRUE;
+SDL_bool gfx_pixels_dirty = SDL_TRUE ;
 
 #include "functions.cpp"
 
@@ -28,7 +28,7 @@ int main( int argc , char* argv[ ] ) {
 
     ///////////////////////////////////////////////////////////////////////////
 
-    window1 = SDL_CreateWindow( "Hello World!" , 100 , 100 , WINDOW_WIDTH , WINDOW_HEIGHT , SDL_WINDOW_SHOWN ) ;
+    window1 = SDL_CreateWindow( "snake" , 100 , 100 , WINDOW_WIDTH , WINDOW_HEIGHT , SDL_WINDOW_SHOWN ) ;
 
     if( window1 == nullptr ) {
         cout << "SDL_CreateWindow Error: " << SDL_GetError( ) << endl;
@@ -133,8 +133,6 @@ int main( int argc , char* argv[ ] ) {
 
                     //////////////////////////////////////////////////////////
 
-
-
                 }
 
             }
@@ -147,11 +145,12 @@ int main( int argc , char* argv[ ] ) {
     
     ///////////////////////////////////////////////////////////////////////////
 
+    delete[ ] pixels ;
 
-    delete[] pixels ;
     SDL_DestroyTexture( texture_pixels ) ;
 
     SDL_DestroyRenderer( renderer1 ) ;
+
     SDL_DestroyWindow( window1 ) ;
 
     SDL_Quit( ) ;

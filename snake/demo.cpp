@@ -1,13 +1,18 @@
 
 #include "inc.cpp"
+#include "snake.cpp"
 
 int game_setup( ) {
+
+    snake_setup( ) ;
 
     return( 0 ) ;
 
 }
 
 int game_loop( ) {
+
+    snake_loop( ) ;
 
     return( 0 ) ;
 
@@ -16,6 +21,9 @@ int game_loop( ) {
 int game_event_keydown( int key ) {
 
     // SDLK_RIGHT, SDLK_LEFT etc.
+
+    if( key == SDLK_RIGHT ) snake_turn_clockwise( ) ;
+    if( key == SDLK_LEFT ) snake_turn_anticlockwise( ) ;
 
     return( 0 ) ;
 
@@ -46,6 +54,7 @@ int game_event_mousemotion( int mouse_x , int mouse_y ) {
     gfx_pixel_set( x , y , 255 , 255 , 255 );
 
     gfx_pixel_set( ox + ( ox - x )  , y , 255 , 255 , 255 ) ;
+
     gfx_pixel_set( x , oy + ( oy - y ) , 255 , 255 , 255 ) ;
     
     gfx_pixel_set( ox + ( ox - x ) , oy + ( oy - y ) , 255 , 255 , 255 ) ;
@@ -53,4 +62,3 @@ int game_event_mousemotion( int mouse_x , int mouse_y ) {
     return( 0 ) ;
 
 }
-
