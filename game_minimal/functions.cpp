@@ -10,6 +10,7 @@ void gfx_window_clear( ) {
 void gfx_line_draw( int x1 , int y1, int x2, int y2 ) {
 
     SDL_RenderDrawLine( renderer1 , x1 , y1 , x2 , y2 ) ;
+    gfx_pixels_dirty = SDL_TRUE ;
 
 }
 
@@ -27,27 +28,26 @@ void gfx_color_set( int r , int g , int b , int a ) {
 }
 
 void gfx_pixel_set( int x , int y , int r , int g , int b , int a ) {
-    
+
     pixels[ ( y * WINDOW_WIDTH ) + x ] = (a<<24) + (r<<16)+ (g<<8)+b;
-    gfx_pixels_dirty=SDL_TRUE;
+    gfx_pixels_dirty = SDL_TRUE ;
 
 }
 
 void gfx_pixel_set( int x , int y , int r , int g , int b ) {
-    
+
     pixels[ ( y * WINDOW_WIDTH ) + x ] = (SDL_ALPHA_OPAQUE<<24) + (r<<16)+ (g<<8)+b;
-    gfx_pixels_dirty=SDL_TRUE;
+    gfx_pixels_dirty = SDL_TRUE ;
 
 }
 
 void gfx_pixels_clear( ) {
 
     memset( pixels , 0 , WINDOW_WIDTH * WINDOW_HEIGHT * sizeof( Uint32 ) ) ;
-    
+
 }
 
 void gfx_present( ) {
-
 
     if( gfx_pixels_dirty ) {
 
@@ -56,9 +56,7 @@ void gfx_present( ) {
 
     }
 
-    SDL_RenderCopy(renderer1, texture_pixels, NULL, NULL);
-
-
+    SDL_RenderCopy( renderer1 , texture_pixels , NULL , NULL ) ;
 
     SDL_RenderPresent( renderer1 ) ;
 
